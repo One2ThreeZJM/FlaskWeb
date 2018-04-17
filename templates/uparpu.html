@@ -1,0 +1,44 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Flask{% endblock %}
+
+{% block navbar %}
+    <div class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span>
+                    <span class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand">Flask</div>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/salmonads">Salmonads</a></li>
+                    <li><a href="/mobpower">Mobpower</a></li>
+                    <li><a href="/uparpu">Uparpu</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="page-header">
+        <form action="/uparpu" method="POST">
+            <textarea class='richtextcode col-md-12' name='data' style="width:100%; height:300px;font-size:20px" autofocus>{{data}}</textarea> 
+
+            <input type="submit" name='提交' class="btn btn-default navbar-btn">自动解析不同码表：app/placement/da/tk</input>
+            <textarea class='richtextcode col-md-12' name='result' style="width:100%; height:300px;font-size:20px" placeholder="{{placeholder}}">{{content}}</textarea>          
+        </form>
+
+        </div>
+
+
+    </div>
+
+
+{% endblock %}
+
+
+
