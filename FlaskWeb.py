@@ -1,4 +1,4 @@
-#!/usr/bin/evn python
+﻿#!/usr/bin/evn python
 # coding: UTF-8
 
 from flask import Flask, render_template, request
@@ -9,6 +9,7 @@ from wtforms.validators import DataRequired, Required, Length, Email, Regexp, Eq
 from flask_bootstrap import Bootstrap
 import base64
 import re
+import json
 
 app = Flask(__name__)
 # app.config.from_object('config')
@@ -29,7 +30,9 @@ def upEncode(data, chars, chars1):
     str = base64.b64encode(data)
     str = multiple_replace(data, dict(zip(CHARS1, CHARS)))
     str = base64.b64decode(str)
-    return str
+
+    return json.dumps(json.loads(str), sort_keys=True,
+                      indent=2, ensure_ascii=False)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -47,6 +50,7 @@ def index():
         except Exception, e:
             try:
                 result = base64.b64decode(data)
+                result = unicode(result, "utf-8")
                 return render_template('index.html', data=data, content=result)
             except Exception, e:
                 return render_template('index.html', data=data, content=e)
@@ -62,6 +66,10 @@ def mobpower():
     else:
         try:
             result = upEncode(data, CHARS, CHARS1)
+            # result = json.loads(result)
+            # result = json.dumps(json.loads(result), sort_keys=True,
+            #                     indent=2, ensure_ascii=False)
+
             return render_template('mobpower.html', data=data, content=result)
         except Exception, e:
             return render_template('mobpower.html', data=data, content=e)
@@ -77,6 +85,7 @@ def uparpu():
     else:
         try:
             result = upEncode(data, CHARS, CHARS1)
+            # result = unicode(result, "utf-8")
             return render_template('uparpu.html', data=data, content=result)
         except Exception, e:
             CHARS1 = 'xZnV5k+DvSoajc7dRzpHLYhJ46lt0U3QrWifGyNgb9P1OIKmCEuq8sw/XMeBAT2F'
@@ -89,4 +98,4 @@ def uparpu():
 
 if __name__ == '__main__':
     # app.debug = True
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=7777)

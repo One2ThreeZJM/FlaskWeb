@@ -5,13 +5,13 @@
   <head>
     {%- block head %}
     <title>{% block title %}{{title|default}}{% endblock title %}</title>
-
     {%- block metas %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
     {%- endblock metas %}
 
     {%- block styles %}
     <!-- Bootstrap -->
+
     <link href="{{bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap')}}" rel="stylesheet">
     {%- endblock styles %}
     {%- endblock head %}
