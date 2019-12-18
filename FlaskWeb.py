@@ -59,7 +59,7 @@ def index():
 @app.route('/mobpower', methods=['GET', 'POST'])
 def mobpower():
     CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-    CHARS1 = 'r0J+IvLNO92/5fjSqGT7R8x3BFkEumlpZVciPHAstC4UXa6QDw1gozYdMWnhbeyK'
+    CHARS1 = 'BFkEr0JIvT7R8x3LNstC4UXa6QO92zYdMWnhbeyK5fjSqGumlpZVciPHADw1go+/'
     data = request.form.get('data')
     if data is None or data.strip() == "":
         return render_template('mobpower.html', placeholder="")
@@ -72,7 +72,12 @@ def mobpower():
 
             return render_template('mobpower.html', data=data, content=result)
         except Exception, e:
-            return render_template('mobpower.html', data=data, content=e)
+            CHARS1 = 'xZnV5k+DvSoajc7dRzpHLYhJ46lt0U3QrWifGyNgb9P1OIKmCEuq8sw/XMeBAT2F'
+            try:
+                result = upEncode(data, CHARS, CHARS1)
+                return render_template('mobpower.html', data=data, content=result)
+            except Exception, e:
+                return render_template('mobpower.html', data=data, content=e)
 
 
 @app.route('/uparpu', methods=['GET', 'POST'])
@@ -85,7 +90,6 @@ def uparpu():
     else:
         try:
             result = upEncode(data, CHARS, CHARS1)
-            # result = unicode(result, "utf-8")
             return render_template('uparpu.html', data=data, content=result)
         except Exception, e:
             CHARS1 = 'xZnV5k+DvSoajc7dRzpHLYhJ46lt0U3QrWifGyNgb9P1OIKmCEuq8sw/XMeBAT2F'
@@ -93,7 +97,13 @@ def uparpu():
                 result = upEncode(data, CHARS, CHARS1)
                 return render_template('uparpu.html', data=data, content=result)
             except Exception, e:
-                return render_template('uparpu.html', data=data, content=e)
+                CHARS1 = 'dMWnhbeyKr0JIvLNOx3BFkEuml92Y5fjSqGT7R8pZVciPHAstC4UXa6QDw1goz+/'
+                try:
+                    result = upEncode(data, CHARS, CHARS1)
+                    return render_template('uparpu.html', data=data, content=result)
+                except Exception,e:
+                    return render_template('uparpu.html', data=data, content=e)
+
 
 
 if __name__ == '__main__':
